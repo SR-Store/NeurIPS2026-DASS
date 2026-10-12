@@ -1,0 +1,210 @@
+{
+ "domain": "phys_osc",
+ "model": "de.NBI gpt-oss-120b",
+ "n_calls": 20,
+ "count_per_call": 10,
+ "parsed_records": 200,
+ "generated_at": "2026-09-29T16:30:58+08:00",
+ "basis": [
+  {
+   "key": "x**3",
+   "term": "x**3",
+   "display": "x**3",
+   "count": 20,
+   "omega": 0.11235955056179775,
+   "family": "Duffing stiffness"
+  },
+  {
+   "key": "v",
+   "term": "v",
+   "display": "v",
+   "count": 18,
+   "omega": 0.10112359550561797,
+   "family": "Linear viscous damping"
+  },
+  {
+   "key": "x",
+   "term": "x",
+   "display": "x",
+   "count": 18,
+   "omega": 0.10112359550561797,
+   "family": "Linear restoring force"
+  },
+  {
+   "key": "v*x",
+   "term": "v*x",
+   "display": "v*x",
+   "count": 15,
+   "omega": 0.08426966292134831,
+   "family": "Parametric coupling"
+  },
+  {
+   "key": "v*x**2",
+   "term": "v*x**2",
+   "display": "v*x**2",
+   "count": 14,
+   "omega": 0.07865168539325842,
+   "family": "Amplitude‑dependent damping"
+  },
+  {
+   "key": "sin(c*t)",
+   "term": "sin(c0*t)",
+   "display": "sin(alpha*t)",
+   "count": 13,
+   "omega": 0.07303370786516854,
+   "family": "Harmonic forcing"
+  },
+  {
+   "key": "v**3",
+   "term": "v**3",
+   "display": "v**3",
+   "count": 10,
+   "omega": 0.056179775280898875,
+   "family": "Cubic damping"
+  },
+  {
+   "key": "v**2",
+   "term": "v**2",
+   "display": "v**2",
+   "count": 8,
+   "omega": 0.0449438202247191,
+   "family": "Quadratic drag"
+  },
+  {
+   "key": "v*Abs(v)",
+   "term": "v*Abs(v)",
+   "display": "v*Abs(v)",
+   "count": 7,
+   "omega": 0.03932584269662921,
+   "family": "Quadratic drag"
+  },
+  {
+   "key": "1/(c*x**2 + 1)",
+   "term": "1/(c0*x**2 + 1)",
+   "display": "1/(alpha*x**2 + 1)",
+   "count": 6,
+   "omega": 0.033707865168539325,
+   "family": "Saturating spring"
+  },
+  {
+   "key": "x**2",
+   "term": "x**2",
+   "display": "x**2",
+   "count": 6,
+   "omega": 0.033707865168539325,
+   "family": "Quadratic stiffness"
+  },
+  {
+   "key": "x*exp(c*t)",
+   "term": "x*exp(c0*t)",
+   "display": "x*exp(alpha*t)",
+   "count": 6,
+   "omega": 0.033707865168539325,
+   "family": "Time‑modulated stiffness"
+  },
+  {
+   "key": "exp(c*t)",
+   "term": "exp(c0*t)",
+   "display": "exp(alpha*t)",
+   "count": 4,
+   "omega": 0.02247191011235955,
+   "family": "Exponential decay forcing"
+  },
+  {
+   "key": "t*x",
+   "term": "t*x",
+   "display": "t*x",
+   "count": 4,
+   "omega": 0.02247191011235955,
+   "family": "Parametric stiffness modulation"
+  },
+  {
+   "key": "x/(c*x**2 + 1)",
+   "term": "x/(c0*x**2 + 1)",
+   "display": "x/(alpha*x**2 + 1)",
+   "count": 4,
+   "omega": 0.02247191011235955,
+   "family": "Rational‑function stiffness"
+  },
+  {
+   "key": "Abs(v)",
+   "term": "Abs(v)",
+   "display": "Abs(v)",
+   "count": 3,
+   "omega": 0.016853932584269662,
+   "family": "Coulomb friction"
+  },
+  {
+   "key": "cos(c*x)",
+   "term": "cos(c0*x)",
+   "display": "cos(alpha*x)",
+   "count": 3,
+   "omega": 0.016853932584269662,
+   "family": "Spatially periodic forcing"
+  },
+  {
+   "key": "v**2*x",
+   "term": "v**2*x",
+   "display": "v**2*x",
+   "count": 3,
+   "omega": 0.016853932584269662,
+   "family": "Mixed nonlinear drag"
+  },
+  {
+   "key": "v*exp(c*t)",
+   "term": "v*exp(c0*t)",
+   "display": "v*exp(alpha*t)",
+   "count": 3,
+   "omega": 0.016853932584269662,
+   "family": "Time‑varying damping"
+  },
+  {
+   "key": "v/(c*x**2 + 1)",
+   "term": "v/(c0*x**2 + 1)",
+   "display": "v/(alpha*x**2 + 1)",
+   "count": 3,
+   "omega": 0.016853932584269662,
+   "family": "Saturating drag"
+  },
+  {
+   "key": "x**5",
+   "term": "x**5",
+   "display": "x**5",
+   "count": 3,
+   "omega": 0.016853932584269662,
+   "family": "Quintic stiffness"
+  },
+  {
+   "key": "x*sin(c*t)",
+   "term": "x*sin(c0*t)",
+   "display": "x*sin(alpha*t)",
+   "count": 3,
+   "omega": 0.016853932584269662,
+   "family": "Sinusoidal parametric drive"
+  },
+  {
+   "key": "cos(c*t)",
+   "term": "cos(c0*t)",
+   "display": "cos(alpha*t)",
+   "count": 2,
+   "omega": 0.011235955056179775,
+   "family": "Harmonic forcing"
+  },
+  {
+   "key": "1/(c + t**2)",
+   "term": "1/(c0 + t**2)",
+   "display": "1/(alpha + t**2)",
+   "count": 1,
+   "omega": 0.0056179775280898875,
+   "family": "Time‑dependent forcing"
+  },
+  {
+   "key": "1/(c + x**2)",
+   "term": "1/(c0 + x**2)",
+   "display": "1/(alpha + x**2)",
+   "count": 1,
+   "omega": 0.0056179775280898875,
+   "family": "Inverse‑square regularized"
+  }
+ ]
+}

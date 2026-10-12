@@ -1,0 +1,244 @@
+# Copyright 2023 DeepMind Technologies Limited
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ==============================================================================
+# Modified for this distribution: retain the sampling classes and extraction
+# routine; omit unused local-model, request-client, and logging dependencies.
+
+""" Class for sampling new program skeletons. """
+from __future__ import annotations
+from abc import ABC, abstractmethod
+
+from typing import Collection, Sequence, Type
+import numpy as np
+import time
+
+from llmsr import evaluator
+from llmsr import buffer
+from llmsr import config as config_lib
+import os
+
+import asyncio
+
+
+
+class LLM(ABC):
+    def __init__(self, samples_per_prompt: int) -> None:
+        self._samples_per_prompt = samples_per_prompt
+
+    def _draw_sample(self, prompt: str) -> str:
+        """ Return a predicted continuation of `prompt`."""
+        raise NotImplementedError('Must provide a language model.')
+
+    @abstractmethod
+    def draw_samples(self, prompt: str) -> Collection[str]:
+        """ Return multiple predicted continuations of `prompt`. """
+        return [self._draw_sample(prompt) for _ in range(self._samples_per_prompt)]
+
+
+
+class Sampler:
+    """ Node that samples program skeleton continuations and sends them for analysis. """
+    _global_samples_nums: int = 1 
+
+    def __init__(
+            self,
+            database: buffer.ExperienceBuffer,
+            evaluators: Sequence[evaluator.Evaluator],
+            samples_per_prompt: int,
+            config: config_lib.Config,
+            max_sample_nums: int | None = None,
+            llm_class: Type[LLM] = LLM,
+    ):
+        self._samples_per_prompt = samples_per_prompt
+        self._database = database
+        self._evaluators = evaluators
+        self._llm = llm_class(samples_per_prompt)
+        self._max_sample_nums = max_sample_nums
+        self.config = config
+
+    
+    def sample(self, **kwargs):
+        """ Continuously gets prompts, samples programs, sends them for analysis. """
+        while True:
+            # stop the search process if hit global max sample nums
+            if self._max_sample_nums and self.__class__._global_samples_nums >= self._max_sample_nums:
+                print("Break 1")
+                break
+
+            profiler: profile.Profiler = kwargs.get('profiler', None)
+            if profiler:
+                if profiler._cur_best_program_score == 0:
+                    print("Break 2")
+                    break
+            
+            prompt = self._database.get_prompt()
+            
+            reset_time = time.time()
+
+            num_concurent = 20
+            queue = asyncio.Queue(maxsize=self._samples_per_prompt)
+            schedule_queue = asyncio.Queue(maxsize=num_concurent)
+
+            async def sample_program():
+                await schedule_queue.put(1)
+                completion = await self._llm.async_draw_single_sample(prompt.code,self.config)
+                await schedule_queue.get()
+
+                await queue.put(completion)
+
+
+                # queue.put(completion)
+                # return completion
+                # self._global_sample_nums_plus_one()
+            
+
+            async def process_sampled_program():
+                for count in range(self._samples_per_prompt):
+                    sample = await queue.get()
+
+                    sample_time = (time.time() - reset_time) / (count + 1)
+
+                    self._global_sample_nums_plus_one()
+                    cur_global_sample_nums = self._get_global_sample_nums()
+                    chosen_evaluator: evaluator.Evaluator = np.random.choice(self._evaluators)
+                    chosen_evaluator.analyse(
+                        sample,
+                        prompt.island_id,
+                        prompt.version_generated,
+                        **kwargs,
+                        global_sample_nums=cur_global_sample_nums,
+                        sample_time=sample_time
+                    )
+                # queue.put(completion)
+                # return completion
+                # self._global_sample_nums_plus_one()
+            
+            loop = asyncio.new_event_loop()
+            tasks = [
+                loop.create_task(sample_program()) for _ in range(self._samples_per_prompt)
+            ] + [loop.create_task(process_sampled_program())]
+            
+            loop.run_until_complete(asyncio.wait(tasks))
+            loop.close()
+
+            # loop.run_until_complete(asyncio.gather(*tasks))
+            # count = 0
+            # while True:
+            #     sample = queue.get()  # Read from the queue and do nothing
+                
+            #     count += 1
+            #     sample_time = (time.time() - reset_time) / count
+
+            #     self._global_sample_nums_plus_one()
+            #     cur_global_sample_nums = self._get_global_sample_nums()
+            #     chosen_evaluator: evaluator.Evaluator = np.random.choice(self._evaluators)
+            #     chosen_evaluator.analyse(
+            #         sample,
+            #         prompt.island_id,
+            #         prompt.version_generated,
+            #         **kwargs,
+            #         global_sample_nums=cur_global_sample_nums,
+            #         sample_time=sample_time
+            #     )
+            #     if count == self._samples_per_prompt:
+            #         break
+
+
+
+
+
+
+            # samples = self._llm.draw_samples(prompt.code,self.config)
+            # # print(samples)
+            # sample_time = (time.time() - reset_time) / self._samples_per_prompt
+
+            # # This loop can be executed in parallel on remote evaluator machines.
+            # for sample in samples:
+            #     self._global_sample_nums_plus_one()
+            #     cur_global_sample_nums = self._get_global_sample_nums()
+            #     chosen_evaluator: evaluator.Evaluator = np.random.choice(self._evaluators)
+            #     chosen_evaluator.analyse(
+            #         sample,
+            #         prompt.island_id,
+            #         prompt.version_generated,
+            #         **kwargs,
+            #         global_sample_nums=cur_global_sample_nums,
+            #         sample_time=sample_time
+            #     )
+
+    def _get_global_sample_nums(self) -> int:
+        return self.__class__._global_samples_nums
+
+    def set_global_sample_nums(self, num):
+        self.__class__._global_samples_nums = num
+
+    def _global_sample_nums_plus_one(self):
+        self.__class__._global_samples_nums += 1
+
+
+
+
+
+
+def _extract_body(sample: str, config: config_lib.Config) -> str:
+    """
+    Extract the function body from a response sample, removing any preceding descriptions
+    and the function signature. Preserves indentation.
+    ------------------------------------------------------------------------------------------------------------------
+    Input example:
+    ```
+    This is a description...
+    def function_name(...):
+        return ...
+    Additional comments...
+    ```
+    ------------------------------------------------------------------------------------------------------------------
+    Output example:
+    ```
+        return ...
+    Additional comments...
+    ```
+    ------------------------------------------------------------------------------------------------------------------
+    If no function definition is found, returns the original sample.
+    """
+    lines = sample.splitlines()
+    func_body_lineno = 0
+    find_def_declaration = False
+    
+    for lineno, line in enumerate(lines):
+        # find the first 'def' program statement in the response
+        if line[:3] == 'def':
+            func_body_lineno = lineno
+            find_def_declaration = True
+            break
+    
+    if find_def_declaration:
+        # for gpt APIs
+        if config.use_api:
+            code = ''
+            for line in lines[func_body_lineno + 1:]:
+                code += line + '\n'
+        
+        # for mixtral
+        else:
+            code = ''
+            indent = '    '
+            for line in lines[func_body_lineno + 1:]:
+                if line[:4] != indent:
+                    line = indent + line
+                code += line + '\n'
+        
+        return code
+    
+    return sample

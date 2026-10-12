@@ -1,0 +1,210 @@
+{
+ "domain": "matsci",
+ "model": "de.NBI gpt-oss-120b",
+ "n_calls": 20,
+ "count_per_call": 10,
+ "parsed_records": 199,
+ "generated_at": "2026-09-29T16:30:58+08:00",
+ "basis": [
+  {
+   "key": "epsilon**c",
+   "term": "epsilon**c0",
+   "display": "epsilon**alpha",
+   "count": 18,
+   "omega": 0.1276595744680851,
+   "family": "PowerLawHardening"
+  },
+  {
+   "key": "epsilon",
+   "term": "epsilon",
+   "display": "epsilon",
+   "count": 16,
+   "omega": 0.11347517730496454,
+   "family": "Linear elasticity (Hooke's law)"
+  },
+  {
+   "key": "epsilon**c*exp(c/T)",
+   "term": "epsilon**c0*exp(c1/T)",
+   "display": "epsilon**alpha*exp(beta/T)",
+   "count": 13,
+   "omega": 0.09219858156028368,
+   "family": "Thermally‑activated power‑law hardening"
+  },
+  {
+   "key": "exp(c*epsilon)",
+   "term": "exp(c0*epsilon)",
+   "display": "exp(alpha*epsilon)",
+   "count": 10,
+   "omega": 0.07092198581560284,
+   "family": "ExponentialHardening"
+  },
+  {
+   "key": "log(c*epsilon + 1)",
+   "term": "log(c0*epsilon + 1)",
+   "display": "log(alpha*epsilon + 1)",
+   "count": 10,
+   "omega": 0.07092198581560284,
+   "family": "Logarithmic hardening"
+  },
+  {
+   "key": "1 - exp(c*epsilon)",
+   "term": "1 - exp(c0*epsilon)",
+   "display": "1 - exp(alpha*epsilon)",
+   "count": 7,
+   "omega": 0.04964539007092199,
+   "family": "Exponential saturation hardening"
+  },
+  {
+   "key": "epsilon*exp(T*c)",
+   "term": "epsilon*exp(T*c0)",
+   "display": "epsilon*exp(T*alpha)",
+   "count": 7,
+   "omega": 0.04964539007092199,
+   "family": "Thermo‑elastic modulus (exponential)"
+  },
+  {
+   "key": "epsilon*exp(c/T)",
+   "term": "epsilon*exp(c0/T)",
+   "display": "epsilon*exp(alpha/T)",
+   "count": 7,
+   "omega": 0.04964539007092199,
+   "family": "Thermally activated flow (Arrhenius)"
+  },
+  {
+   "key": "epsilon/(T*c + 1)",
+   "term": "epsilon/(T*c0 + 1)",
+   "display": "epsilon/(T*alpha + 1)",
+   "count": 7,
+   "omega": 0.04964539007092199,
+   "family": "Temperature‑dependent modulus (inverse linear)"
+  },
+  {
+   "key": "T**c*epsilon**c",
+   "term": "T**c0*epsilon**c1",
+   "display": "T**alpha*epsilon**beta",
+   "count": 6,
+   "omega": 0.0425531914893617,
+   "family": "ThermoMechanicalPowerLaw"
+  },
+  {
+   "key": "exp(c/T)",
+   "term": "exp(c0/T)",
+   "display": "exp(alpha/T)",
+   "count": 5,
+   "omega": 0.03546099290780142,
+   "family": "Arrhenius‑type thermal activation"
+  },
+  {
+   "key": "epsilon*(T*c + 1)",
+   "term": "epsilon*(T*c0 + 1)",
+   "display": "epsilon*(T*alpha + 1)",
+   "count": 4,
+   "omega": 0.028368794326241134,
+   "family": "Temperature-modulated modulus"
+  },
+  {
+   "key": "epsilon**c*exp(T*c)",
+   "term": "epsilon**c0*exp(T*c1)",
+   "display": "epsilon**alpha*exp(T*beta)",
+   "count": 4,
+   "omega": 0.028368794326241134,
+   "family": "Johnson-Cook style"
+  },
+  {
+   "key": "log(epsilon + 1)",
+   "term": "log(epsilon + 1)",
+   "display": "log(epsilon + 1)",
+   "count": 4,
+   "omega": 0.028368794326241134,
+   "family": "Logarithmic hardening"
+  },
+  {
+   "key": "epsilon**c*exp(c/(T + c))",
+   "term": "epsilon**c0*exp(c1/(T + c2))",
+   "display": "epsilon**alpha*exp(beta/(T + gamma))",
+   "count": 3,
+   "omega": 0.02127659574468085,
+   "family": "JohnsonCookLike"
+  },
+  {
+   "key": "(T*c + 1)**c",
+   "term": "(T*c0 + 1)**c1",
+   "display": "(T*alpha + 1)**beta",
+   "count": 2,
+   "omega": 0.014184397163120567,
+   "family": "Temperature-modulated power law"
+  },
+  {
+   "key": "T",
+   "term": "T",
+   "display": "T",
+   "count": 2,
+   "omega": 0.014184397163120567,
+   "family": "Linear thermal stress"
+  },
+  {
+   "key": "T*epsilon",
+   "term": "T*epsilon",
+   "display": "T*epsilon",
+   "count": 2,
+   "omega": 0.014184397163120567,
+   "family": "ThermoelasticCoupling"
+  },
+  {
+   "key": "epsilon*(T + c)",
+   "term": "epsilon*(T + c0)",
+   "display": "epsilon*(T + alpha)",
+   "count": 2,
+   "omega": 0.014184397163120567,
+   "family": "Linear thermo‑mechanical coupling (thermal expansion)"
+  },
+  {
+   "key": "epsilon*(T*c + 1)**c",
+   "term": "epsilon*(T*c0 + 1)**c1",
+   "display": "epsilon*(T*alpha + 1)**beta",
+   "count": 2,
+   "omega": 0.014184397163120567,
+   "family": "Thermal softening (temperature‑dependent modulus)"
+  },
+  {
+   "key": "epsilon**c*(1 - (T*c)**c)",
+   "term": "epsilon**c0*(1 - (T*c1)**c2)",
+   "display": "epsilon**alpha*(1 - (T*beta)**gamma)",
+   "count": 2,
+   "omega": 0.014184397163120567,
+   "family": "JohnsonCookSimplified"
+  },
+  {
+   "key": "epsilon**c*(T*c + 1)",
+   "term": "epsilon**c0*(T*c1 + 1)",
+   "display": "epsilon**alpha*(T*beta + 1)",
+   "count": 2,
+   "omega": 0.014184397163120567,
+   "family": "ThermoPowerLaw"
+  },
+  {
+   "key": "epsilon*exp(c/(T + c))",
+   "term": "epsilon*exp(c0/(T + c1))",
+   "display": "epsilon*exp(alpha/(T + beta))",
+   "count": 2,
+   "omega": 0.014184397163120567,
+   "family": "Exponential thermal softening (Norton‑type)"
+  },
+  {
+   "key": "epsilon/(c + epsilon)",
+   "term": "epsilon/(c0 + epsilon)",
+   "display": "epsilon/(alpha + epsilon)",
+   "count": 2,
+   "omega": 0.014184397163120567,
+   "family": "Saturated hardening (Voce‑type)"
+  },
+  {
+   "key": "epsilon/(c*epsilon + 1)",
+   "term": "epsilon/(c0*epsilon + 1)",
+   "display": "epsilon/(alpha*epsilon + 1)",
+   "count": 2,
+   "omega": 0.014184397163120567,
+   "family": "RationalHardening"
+  }
+ ]
+}

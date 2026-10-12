@@ -1,0 +1,210 @@
+{
+ "domain": "bio_pop_growth",
+ "model": "de.NBI gpt-oss-120b",
+ "n_calls": 20,
+ "count_per_call": 10,
+ "parsed_records": 200,
+ "generated_at": "2026-09-29T16:30:58+08:00",
+ "basis": [
+  {
+   "key": "P",
+   "term": "P",
+   "display": "P",
+   "count": 20,
+   "omega": 0.11049723756906077,
+   "family": "Exponential growth"
+  },
+  {
+   "key": "P*(P*c + 1)",
+   "term": "P*(P*c0 + 1)",
+   "display": "P*(P*alpha + 1)",
+   "count": 20,
+   "omega": 0.11049723756906077,
+   "family": "Logistic"
+  },
+  {
+   "key": "P/(P*c + 1)",
+   "term": "P/(P*c0 + 1)",
+   "display": "P/(P*alpha + 1)",
+   "count": 16,
+   "omega": 0.08839779005524862,
+   "family": "Beverton‑Holt"
+  },
+  {
+   "key": "P**c",
+   "term": "P**c0",
+   "display": "P**alpha",
+   "count": 15,
+   "omega": 0.08287292817679558,
+   "family": "Power_law_growth"
+  },
+  {
+   "key": "P*log(c/P)",
+   "term": "P*log(c0/P)",
+   "display": "P*log(alpha/P)",
+   "count": 15,
+   "omega": 0.08287292817679558,
+   "family": "Gompertz"
+  },
+  {
+   "key": "P*exp(P*c)",
+   "term": "P*exp(P*c0)",
+   "display": "P*exp(P*alpha)",
+   "count": 14,
+   "omega": 0.07734806629834254,
+   "family": "Ricker"
+  },
+  {
+   "key": "P*exp(c*t)",
+   "term": "P*exp(c0*t)",
+   "display": "P*exp(alpha*t)",
+   "count": 14,
+   "omega": 0.07734806629834254,
+   "family": "Time‑varying Malthusian"
+  },
+  {
+   "key": "P*(1 - (P*c)**c)",
+   "term": "P*(1 - (P*c0)**c1)",
+   "display": "P*(1 - (P*alpha)**beta)",
+   "count": 13,
+   "omega": 0.0718232044198895,
+   "family": "Richards"
+  },
+  {
+   "key": "P/(c*exp(c*t) + 1)",
+   "term": "P/(c0*exp(c1*t) + 1)",
+   "display": "P/(alpha*exp(beta*t) + 1)",
+   "count": 9,
+   "omega": 0.049723756906077346,
+   "family": "Delayed logistic"
+  },
+  {
+   "key": "P*(P*c - 1)",
+   "term": "P*(P*c0 - 1)",
+   "display": "P*(P*alpha - 1)",
+   "count": 8,
+   "omega": 0.04419889502762431,
+   "family": "Strong Allee effect"
+  },
+  {
+   "key": "P/((P*c)**c + 1)",
+   "term": "P/((P*c0)**c1 + 1)",
+   "display": "P/((P*alpha)**beta + 1)",
+   "count": 5,
+   "omega": 0.027624309392265192,
+   "family": "Beverton‑Holt"
+  },
+  {
+   "key": "P**c*exp(P*c)",
+   "term": "P**c0*exp(P*c1)",
+   "display": "P**alpha*exp(P*beta)",
+   "count": 4,
+   "omega": 0.022099447513812154,
+   "family": "Ricker"
+  },
+  {
+   "key": "P**c/(P**c*c + 1)",
+   "term": "P**c0/(P**c1*c2 + 1)",
+   "display": "P**alpha/(P**beta*gamma + 1)",
+   "count": 4,
+   "omega": 0.022099447513812154,
+   "family": "Hill_type"
+  },
+  {
+   "key": "P/(P + c)",
+   "term": "P/(P + c0)",
+   "display": "P/(P + alpha)",
+   "count": 4,
+   "omega": 0.022099447513812154,
+   "family": "Holling type II predation"
+  },
+  {
+   "key": "P**c*(1 - (P*c)**c)",
+   "term": "P**c0*(1 - (P*c1)**c2)",
+   "display": "P**alpha*(1 - (P*beta)**gamma)",
+   "count": 3,
+   "omega": 0.016574585635359115,
+   "family": "Richards model"
+  },
+  {
+   "key": "P/(c*t + 1)",
+   "term": "P/(c0*t + 1)",
+   "display": "P/(alpha*t + 1)",
+   "count": 3,
+   "omega": 0.016574585635359115,
+   "family": "Time‑decay growth"
+  },
+  {
+   "key": "P**2",
+   "term": "P**2",
+   "display": "P**2",
+   "count": 2,
+   "omega": 0.011049723756906077,
+   "family": "Quadratic_mortality"
+  },
+  {
+   "key": "P**2/(P**2 + c)",
+   "term": "P**2/(P**2 + c0)",
+   "display": "P**2/(P**2 + alpha)",
+   "count": 2,
+   "omega": 0.011049723756906077,
+   "family": "Sigmoidal_saturation"
+  },
+  {
+   "key": "P*log(P*c)",
+   "term": "P*log(P*c0)",
+   "display": "P*log(P*alpha)",
+   "count": 2,
+   "omega": 0.011049723756906077,
+   "family": "Gompertz"
+  },
+  {
+   "key": "P/(P**c*c + 1)",
+   "term": "P/(P**c0*c1 + 1)",
+   "display": "P/(P**alpha*beta + 1)",
+   "count": 2,
+   "omega": 0.011049723756906077,
+   "family": "GeneralizedHolling"
+  },
+  {
+   "key": "exp(c*t)",
+   "term": "exp(c0*t)",
+   "display": "exp(alpha*t)",
+   "count": 2,
+   "omega": 0.011049723756906077,
+   "family": "Time_exponential"
+  },
+  {
+   "key": "-P**(1/3) + c",
+   "term": "-P**(1/3) + c0",
+   "display": "-P**(1/3) + alpha",
+   "count": 1,
+   "omega": 0.0055248618784530384,
+   "family": "von Bertalanffy growth"
+  },
+  {
+   "key": "1 - exp(P*c)",
+   "term": "1 - exp(P*c0)",
+   "display": "1 - exp(P*alpha)",
+   "count": 1,
+   "omega": 0.0055248618784530384,
+   "family": "Allee‑saturating"
+  },
+  {
+   "key": "1/(c*exp(c*t) + 1)",
+   "term": "1/(c0*exp(c1*t) + 1)",
+   "display": "1/(alpha*exp(beta*t) + 1)",
+   "count": 1,
+   "omega": 0.0055248618784530384,
+   "family": "Time_saturation"
+  },
+  {
+   "key": "P*(1 - (P*c)**c)*exp(c*t)",
+   "term": "P*(1 - (P*c0)**c1)*exp(c2*t)",
+   "display": "P*(1 - (P*alpha)**beta)*exp(gamma*t)",
+   "count": 1,
+   "omega": 0.0055248618784530384,
+   "family": "Time‑decaying logistic"
+  }
+ ]
+}

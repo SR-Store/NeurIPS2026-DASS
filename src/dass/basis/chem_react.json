@@ -1,0 +1,210 @@
+{
+ "domain": "chem_react",
+ "model": "de.NBI gpt-oss-120b",
+ "n_calls": 20,
+ "count_per_call": 10,
+ "parsed_records": 200,
+ "generated_at": "2026-09-29T16:30:58+08:00",
+ "basis": [
+  {
+   "key": "A**c",
+   "term": "A**c0",
+   "display": "A**alpha",
+   "count": 21,
+   "omega": 0.12209302325581395,
+   "family": "Autocatalytic power law"
+  },
+  {
+   "key": "A",
+   "term": "A",
+   "display": "A",
+   "count": 20,
+   "omega": 0.11627906976744186,
+   "family": "First-order decay"
+  },
+  {
+   "key": "A**2",
+   "term": "A**2",
+   "display": "A**2",
+   "count": 15,
+   "omega": 0.0872093023255814,
+   "family": "Second-order bimolecular"
+  },
+  {
+   "key": "A/(A + c)",
+   "term": "A/(A + c0)",
+   "display": "A/(A + alpha)",
+   "count": 15,
+   "omega": 0.0872093023255814,
+   "family": "Michaelis-Menten"
+  },
+  {
+   "key": "exp(c*t)",
+   "term": "exp(c0*t)",
+   "display": "exp(alpha*t)",
+   "count": 13,
+   "omega": 0.0755813953488372,
+   "family": "Time‑dependent exponential decay"
+  },
+  {
+   "key": "log(A*c + 1)",
+   "term": "log(A*c0 + 1)",
+   "display": "log(A*alpha + 1)",
+   "count": 12,
+   "omega": 0.06976744186046512,
+   "family": "Logarithmic inhibition"
+  },
+  {
+   "key": "A*exp(c*t)",
+   "term": "A*exp(c0*t)",
+   "display": "A*exp(alpha*t)",
+   "count": 11,
+   "omega": 0.06395348837209303,
+   "family": "Autocatalytic decay"
+  },
+  {
+   "key": "1/(A*c + 1)",
+   "term": "1/(A*c0 + 1)",
+   "display": "1/(A*alpha + 1)",
+   "count": 9,
+   "omega": 0.05232558139534884,
+   "family": "Langmuir-Hinshelwood inhibition"
+  },
+  {
+   "key": "A/(A*c + 1)",
+   "term": "A/(A*c0 + 1)",
+   "display": "A/(A*alpha + 1)",
+   "count": 7,
+   "omega": 0.040697674418604654,
+   "family": "Michaelis-Menten"
+  },
+  {
+   "key": "A/(c*t + 1)",
+   "term": "A/(c0*t + 1)",
+   "display": "A/(alpha*t + 1)",
+   "count": 7,
+   "omega": 0.040697674418604654,
+   "family": "Time‑dependent first‑order"
+  },
+  {
+   "key": "sqrt(A)",
+   "term": "sqrt(A)",
+   "display": "sqrt(A)",
+   "count": 6,
+   "omega": 0.03488372093023256,
+   "family": "Fractional-order kinetics"
+  },
+  {
+   "key": "exp(A*c)",
+   "term": "exp(A*c0)",
+   "display": "exp(A*alpha)",
+   "count": 5,
+   "omega": 0.029069767441860465,
+   "family": "Autocatalytic exponential"
+  },
+  {
+   "key": "t**c",
+   "term": "t**c0",
+   "display": "t**alpha",
+   "count": 4,
+   "omega": 0.023255813953488372,
+   "family": "Power-law time dependence"
+  },
+  {
+   "key": "1/(c*t + 1)",
+   "term": "1/(c0*t + 1)",
+   "display": "1/(alpha*t + 1)",
+   "count": 3,
+   "omega": 0.01744186046511628,
+   "family": "Time‑dependent first-order"
+  },
+  {
+   "key": "A**c/(A**c + c)",
+   "term": "A**c0/(A**c1 + c2)",
+   "display": "A**alpha/(A**beta + gamma)",
+   "count": 3,
+   "omega": 0.01744186046511628,
+   "family": "Hill kinetics"
+  },
+  {
+   "key": "log(c*t + 1)",
+   "term": "log(c0*t + 1)",
+   "display": "log(alpha*t + 1)",
+   "count": 3,
+   "omega": 0.01744186046511628,
+   "family": "Logarithmic time dependence"
+  },
+  {
+   "key": "1/(A + c)",
+   "term": "1/(A + c0)",
+   "display": "1/(A + alpha)",
+   "count": 2,
+   "omega": 0.011627906976744186,
+   "family": "Inverse_Concentration"
+  },
+  {
+   "key": "1/(c + t)",
+   "term": "1/(c0 + t)",
+   "display": "1/(alpha + t)",
+   "count": 2,
+   "omega": 0.011627906976744186,
+   "family": "Inverse time decay"
+  },
+  {
+   "key": "A**2/(A + c)",
+   "term": "A**2/(A + c0)",
+   "display": "A**2/(A + alpha)",
+   "count": 2,
+   "omega": 0.011627906976744186,
+   "family": "Langmuir‑Hinshelwood"
+  },
+  {
+   "key": "A**2/(A*c + 1)",
+   "term": "A**2/(A*c0 + 1)",
+   "display": "A**2/(A*alpha + 1)",
+   "count": 2,
+   "omega": 0.011627906976744186,
+   "family": "Autocatalytic with saturation"
+  },
+  {
+   "key": "A*exp(A*c)",
+   "term": "A*exp(A*c0)",
+   "display": "A*exp(A*alpha)",
+   "count": 2,
+   "omega": 0.011627906976744186,
+   "family": "Autocatalytic self‑inhibition"
+  },
+  {
+   "key": "A*t**c",
+   "term": "A*t**c0",
+   "display": "A*t**alpha",
+   "count": 2,
+   "omega": 0.011627906976744186,
+   "family": "Time‑enhanced autocatalysis"
+  },
+  {
+   "key": "A/(A*c + c)",
+   "term": "A/(A*c0 + c1)",
+   "display": "A/(A*alpha + beta)",
+   "count": 2,
+   "omega": 0.011627906976744186,
+   "family": "Langmuir‑Hinshelwood"
+  },
+  {
+   "key": "A/(c + t)",
+   "term": "A/(c0 + t)",
+   "display": "A/(alpha + t)",
+   "count": 2,
+   "omega": 0.011627906976744186,
+   "family": "Inverse-time rate coefficient"
+  },
+  {
+   "key": "log(A + c)",
+   "term": "log(A + c0)",
+   "display": "log(A + alpha)",
+   "count": 2,
+   "omega": 0.011627906976744186,
+   "family": "Logarithmic inhibition"
+  }
+ ]
+}
