@@ -6,6 +6,8 @@ supports PySR and LLM-SR in two modes: `base` runs the solver alone, while
 feedback to reshape the basis. For LLM-SR, `dass` also fits basis combinations
 on training data and places selected programs in the experience buffer.
 
+![DASS framework](framework.png)
+
 ## Install
 
 Python 3.10+ on Linux or macOS is required. Install from this source directory:
