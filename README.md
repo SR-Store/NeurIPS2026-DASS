@@ -1,4 +1,4 @@
-# DASS: Dynamic Auxiliary Search for Symbolic Regression
+# DASS
 
 DASS is a dynamic basis-guidance layer for symbolic regression. This package
 supports PySR and LLM-SR in two modes: `base` runs the solver alone, while
@@ -6,53 +6,23 @@ supports PySR and LLM-SR in two modes: `base` runs the solver alone, while
 feedback to reshape the basis. For LLM-SR, `dass` also fits basis combinations
 on training data and places selected programs in the experience buffer.
 
-## Overview
+## Install
 
-| Variant | Behavior |
-| --- | --- |
-| `base` | Run PySR or LLM-SR without DASS guidance. |
-| `dass` | Calibrate basis-term weights, guide the solver, and reshape the basis using solver feedback. LLM-SR also receives fitted programs in its experience buffer. |
-
-The repository includes four domain-specific initial bases, solver adapters,
-benchmark data loading, ID/OOD evaluation, result summarization, and an offline
-example.
-
-## Installation
-
-Use Python 3.10+ on Linux or macOS. Clone the repository and install the package
-in a virtual environment. Run the commands below from the repository root.
+Python 3.10+ on Linux or macOS is required. Install from this source directory:
 
 ```sh
-git clone https://github.com/SR-Store/NeurIPS2026-DASS.git
-cd NeurIPS2026-DASS
-python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install -e ".[test]"
+python3 -m pip install "/path/to/dass[test]"
 ```
 
 For PySR runs, install the optional PySR dependency and its Julia requirements:
 
 ```sh
-python3 -m pip install -e ".[pysr]"
+python3 -m pip install "/path/to/dass[pysr]"
 ```
 
 LLM-SR uses an OpenAI-compatible chat server, such as a local vLLM service.
 The server and model weights are supplied separately; installation does not
 start a model service.
-
-## Quick start: offline example
-
-After installation, run the included synthetic example without a model server,
-benchmark download, or Julia runtime:
-
-```sh
-python3 examples/tiny_offline.py \
-  --data tests/fixtures/tiny_lsr_synth.parquet
-```
-
-The example performs one small DASS calibration step and scores a fixed
-candidate. It prints the task ID, training-set size, selected basis terms, and
-ID/OOD scores; it does not run a full solver search.
 
 ## Data
 
@@ -70,18 +40,15 @@ The four included basis files provide initial terms. Searches and injected
 programs are fitted on `train`; `test` and `ood_test` are used only for final
 scoring. The file's `expression` field is metadata and is not used in search.
 
-## Run experiments
+## Run
 
 Use the same output directory for both variants; records are stored by solver,
 backbone, variant, task, and seed. Existing records are skipped. The default
 seeds are `0,1,2`; `--tasks` selects equation IDs.
 
 ```sh
-dass-run --data /path/to/test.parquet \
-  --solver pysr --variant base --tasks PO19 --seeds 0 --out runs
-
-dass-run --data /path/to/test.parquet \
-  --solver pysr --variant dass --tasks PO19 --seeds 0 --out runs
+dass-run --data /path/to/test.parquet --solver pysr --variant base --tasks PO19 --seeds 0 --out /path/to/results
+dass-run --data /path/to/test.parquet --solver pysr --variant dass --tasks PO19 --seeds 0 --out /path/to/results
 ```
 
 For LLM-SR, point `--endpoints` to one or more running server roots (without
@@ -90,21 +57,9 @@ For LLM-SR, point `--endpoints` to one or more running server roots (without
 name. Set `DASS_API_KEY` only if your server requires authentication.
 
 ```sh
-dass-run --data /path/to/test.parquet \
-  --solver llmsr --backbone qwen --endpoints http://127.0.0.1:8000 \
-  --variant base --tasks PO19 --seeds 0 --out runs
-
-dass-run --data /path/to/test.parquet \
-  --solver llmsr --backbone qwen --endpoints http://127.0.0.1:8000 \
-  --variant dass --tasks PO19 --seeds 0 --out runs
+dass-run --data /path/to/test.parquet --solver llmsr --backbone qwen --endpoints http://127.0.0.1:8000 --variant base --tasks PO19 --seeds 0 --out /path/to/results
+dass-run --data /path/to/test.parquet --solver llmsr --backbone qwen --endpoints http://127.0.0.1:8000 --variant dass --tasks PO19 --seeds 0 --out /path/to/results
 ```
-
-Use `--tasks all` to run all tasks in the supplied file. For the full benchmark,
-add `--official` to validate its expected task counts. Multiple server roots
-can be supplied as a comma-separated `--endpoints` value. Available command-line
-options are listed by `dass-run --help`.
-
-## Results and evaluation
 
 LLM-SR generates 100 model samples per run in both modes. Fitted programs
 inserted by DASS are additional candidates and do not count toward those 100
@@ -115,50 +70,27 @@ result JSON, including injected programs and model replies. Summarize completed
 records with:
 
 ```sh
-python3 scripts/make_table.py runs --out summary.md
+python3 /path/to/dass/scripts/make_table.py /path/to/results --out /path/to/summary.md
 ```
-
-Result paths follow `runs/<solver>/<backbone-or-na>/<variant>/<task>_s<seed>.json`.
-For example, the PySR DASS run above writes `runs/pysr/na/dass/PO19_s0.json`.
 
 NMSE is mean squared error divided by target variance. Acc@0.01 passes when
 the worst 5% of pointwise errors are discarded and every remaining relative
 error is at most 0.01; targets close to zero use the implementation's
 near-zero rule in `dass.metrics`. Nonfinite predictions fail both scores.
 
-## Tests
+## Test
 
 The unit tests and tiny local example need neither a model server nor Julia:
 
 ```sh
-python3 -m pytest tests -m "not integration"
+python3 -m pytest /path/to/dass/tests -m "not integration"
+python3 /path/to/dass/examples/tiny_offline.py --data /path/to/dass/tests/fixtures/tiny_lsr_synth.parquet
 ```
 
 Environment-specific integration tests run separately when their dependencies
 are available. The example reads a tiny synthetic dataset, performs one small
 DASS calibration step, and scores a fixed candidate without a solver or model
 call.
-
-## Repository layout
-
-```text
-src/dass/                 DASS implementation, data loading, and evaluation
-src/dass/basis/           Initial bases for the four benchmark domains
-src/dass/solvers/         PySR and LLM-SR adapters
-src/dass/_vendor/llmsr/   Vendored LLM-SR components and license notices
-examples/tiny_offline.py Offline calibration and scoring example
-scripts/make_table.py    Aggregate experiment records
-tests/                   Unit tests, integration tests, and synthetic fixtures
-```
-
-Default search settings and solver budgets are defined in
-[`src/dass/config.py`](src/dass/config.py). Results record any settings supplied
-through `DASS_OVERRIDES` for reproducibility.
-
-## Contributors
-
-- [QianL1205](https://github.com/QianL1205)
-- [tokaka22](https://github.com/tokaka22)
 
 ## License
 
